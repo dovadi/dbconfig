@@ -1,6 +1,6 @@
 # railsdbconfig
 
-Golang package to read the Rails database.yml file
+Golang package to read the Rails database settings
 
 
 Example
@@ -35,7 +35,7 @@ func main() {
 }
 ```
 
-The most common settings are defined:
+The most common settings are predefined:
 
 ```Go
 type DbSettings struct {
@@ -61,3 +61,8 @@ type DbParameters struct {
 }
 
 ```
+
+Copyright
+---------
+
+Copyright (c) 2015 Frank Oxener. See LICENSE.txt for further details.
