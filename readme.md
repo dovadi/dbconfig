@@ -1,6 +1,6 @@
-# railsdbconfig
+# dbconfig
 
-Golang package to read the Rails database settings
+Golang package to read the database settings in the same way as the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) and generate a connection string for the pq and mysql drivers.
 
 
 Install
@@ -22,7 +22,7 @@ In the settings.json the location to the database yaml file and the application 
   "environment"  : "development"
 }
 ```
-
+Example of usage of Settings
 ```Go
 package main
 
@@ -39,6 +39,8 @@ func main() {
   }
 
   fmt.Println(settings.Database)
+  fmt.Println(settings.Username)
+  fmt.Println(settings.Password)
 }
 ```
 
@@ -58,16 +60,46 @@ type DbParameters struct {
   Database            string
   Username            string
   Password            string
-  Allow_concurrency   bool
-  Timeout             int
-  Pool                int
+  Port                string
+  Allow_concurrency   string
+  Timeout             string
+  Pool                string
   Host                string
   Socket              string
-  Prepared_statements bool
-  Statement_limit     int
+  Prepared_statements string
+  Statement_limit     string
 }
-
 ```
+
+Connection string
+-----------------
+
+Use dbconfig for generating a connection string for the pq or mysql driver
+
+```Go
+package main
+
+import (
+  "database/sql"
+  "fmt"
+
+  _ "github.com/go-sql-driver/mysql"
+  _ "github.com/lib/pq"
+
+  "github.com/dovadi/dbconfig"
+)
+
+func main() {
+
+  connectionString := dbconfig.PostgresConnectionString("settings.json", "disable")
+  db, err := sql.Open("postgres", connectionString)
+
+  // connectionString := dbconfig.MysqlConnectionString("settings.json")
+  // db, err := sql.Open("mysql", connectionString)
+}
+```
+
+
 
 Copyright
 ---------

@@ -36,10 +36,11 @@ func Settings(path string) DbParameters {
 }
 
 /*
-PostgresConnectionString returns the connection string to open a sql session used with the database/sql package
-For example host=dbserver.org password=password user=dbuser dbname=blog_production sslmode=disable
-First parameter is the path to the database settings configuration (json) file
-Second paramater defines the sslmode
+PostgresConnectionString returns the connection string to open a sql session
+used by the github.com/lib/pq package.
+For example: host=dbserver.org password=password user=dbuser dbname=blog_production sslmode=disable
+The first parameter is the path to the database settings configuration (json) file
+and the second paramater defines the sslmode
 */
 func PostgresConnectionString(path string, sslmode string) string {
 	settings := Settings(path)
@@ -50,6 +51,31 @@ func PostgresConnectionString(path string, sslmode string) string {
 		"user=", settings.Username, " ",
 		"dbname=", settings.Database, " ",
 		"sslmode=", sslmode}
+
+	return strings.Join(connection, "")
+}
+
+/*
+MysqlConnectionString returns the connection string to open a sql session used by the github.com/go-sql-driver/mysql/
+For example: username:password@tcp(localhost:3306)/dbname
+Pass the path to the database settings configuration (json) file
+*/
+func MysqlConnectionString(path string) string {
+	var port string
+	settings := Settings(path)
+
+	if len(settings.Port) == 0 {
+		port = "3306"
+	} else {
+		port = settings.Port
+	}
+
+	connection := []string{
+		settings.Username, ":",
+		settings.Password, "@tcp(",
+		settings.Host, ":",
+		port, ")/",
+		settings.Database, ""}
 
 	return strings.Join(connection, "")
 }

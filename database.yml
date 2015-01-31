@@ -58,3 +58,4 @@ production:
   socket: /tmp/mysql.sock
   prepared_statements: false
   statement_limit: 200
+  port: 3309

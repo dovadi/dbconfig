@@ -13,13 +13,14 @@ type DbParameters struct {
 	Database            string
 	Username            string
 	Password            string
-	Allow_concurrency   bool //We need to use underscore to follow Rails naming conventions
-	Timeout             int
-	Pool                int
+	Port                string
+	Allow_concurrency   string //We need to use underscore to follow Rails naming conventions
+	Timeout             string
+	Pool                string
 	Host                string
 	Socket              string
-	Prepared_statements bool
-	Statement_limit     int
+	Prepared_statements string
+	Statement_limit     string
 }
 
 //DbConfig contains all the information from the database yaml config file

@@ -19,7 +19,7 @@ var _ = Describe("Reading the Rails database yml file with default settings", fu
 	})
 
 	It("should return the database name of the production environment", func() {
-		Expect(dbConf.Production.Statement_limit).Should(Equal(200))
+		Expect(dbConf.Production.Statement_limit).Should(Equal("200"))
 	})
 
 })
