@@ -24,7 +24,9 @@ In the settings.json the location to the database yaml file and the application 
   "environment"  : "development"
 }
 ```
+
 Example of usage of Settings
+
 ```Go
 package main
 
@@ -93,15 +95,37 @@ import (
 
 func main() {
 
-  connectionString := dbconfig.PostgresConnectionString("settings.json", "disable")
+  connectionString := dbconfig.PostgresConnectionString("settings.json", "disable") // second parameter for sslmode
   // => "host=dbserver.org password=password user=dbuser dbname=blog_production sslmode=disable"
   db, err := sql.Open("postgres", connectionString)
 
   // connectionString := dbconfig.MysqlConnectionString("settings.json")
   // => "dbuser:password@tcp(dbserver.org:3309)/blog_production"
   // db, err := sql.Open("mysql", connectionString)
+  
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer db.Close()
+
+  .
+  .
+  .
 }
 ```
+
+Run the tests
+-------------
+
+```
+go test
+```
+or with the use of ginkgo
+
+```
+ginkgo -watch=true
+```
+
 
 
 Copyright
