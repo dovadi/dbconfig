@@ -1,5 +1,7 @@
 # dbconfig
 
+[![Travis CI](https://secure.travis-ci.org/dovadi/dbconfig.png)](http://travis-ci.org/dovadi/dbconfig)
+
 Golang package to read the database settings in the same way as the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) and generate a connection string for the pq and mysql drivers.
 
 
