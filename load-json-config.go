@@ -1,4 +1,4 @@
-package railsdbconfig
+package dbconfig
 
 import (
 	"encoding/json"
@@ -6,21 +6,23 @@ import (
 )
 
 //JSONConfig is type for the configuration read from config.json
-type JSONConfig map[string]interface{}
-
-//RailsDir return the directory to the Rails app
-func (c JSONConfig) RailsDir() string {
-	return c["rails-dir"].(string)
+type JSONConfig struct {
+	Environment   string
+	Database_file string
 }
 
 //LoadJSONConfig is loading the json config file
-func LoadJSONConfig(path string) (JSONConfig, error) {
+func LoadJSONConfig(path string) JSONConfig {
 	jsonConfig := JSONConfig{}
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		return jsonConfig, err
+		panic(err)
 	}
 
 	err = json.Unmarshal(data, &jsonConfig)
-	return jsonConfig, err
+	if err != nil {
+		panic(err)
+	}
+
+	return jsonConfig
 }

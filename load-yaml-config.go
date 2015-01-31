@@ -1,8 +1,7 @@
-package railsdbconfig
+package dbconfig
 
 import (
 	"io/ioutil"
-	"log"
 
 	"gopkg.in/yaml.v2"
 )
@@ -32,18 +31,18 @@ type DbConfig struct {
 }
 
 //LoadYamlConfig is loading the yaml config file
-func LoadYamlConfig(path string) (DbConfig, error) {
+func LoadYamlConfig(path string) DbConfig {
 	var dbconfig = DbConfig{}
 
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		panic(err)
 	}
 
 	err = yaml.Unmarshal(data, &dbconfig)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		panic(err)
 	}
 
-	return dbconfig, err
+	return dbconfig
 }

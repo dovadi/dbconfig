@@ -48,12 +48,13 @@ test:
 
 
 production:
+  host: dbserver.org
   adapter: postgres
   encoding: utf8
   database: blog_production
   pool: 5
-  username: root
-  password:
+  username: dbuser
+  password: password
   socket: /tmp/mysql.sock
   prepared_statements: false
   statement_limit: 200

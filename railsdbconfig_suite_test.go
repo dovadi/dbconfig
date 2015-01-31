@@ -1,4 +1,4 @@
-package railsdbconfig_test
+package dbconfig_test
 
 import (
 	. "github.com/onsi/ginkgo"

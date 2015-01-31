@@ -3,18 +3,25 @@
 Golang package to read the Rails database settings
 
 
+Install
+-------
+
+```
+go get -u github.com/dovadi/dbconfig
+```
+
+
 Example
 -------
 
-In the config.json the path to the rails directory needs to be defined
+In the settings.json the location to the database yaml file and the application environment need to be defined
 
 ```Javascript
 {
-  "rails-dir": "/Users/dovadi/rails/blog/"
+  "database_file": "/Users/dovadi/rails/blog/config/database.yml"
+  "environment"  : "development"
 }
 ```
-
-(The config.json should be in the root path of golang program)
 
 ```Go
 package main
@@ -22,16 +29,16 @@ package main
 import (
   "fmt"
 
-  "github.com/dovadi/railsdbconfig"
+  "github.com/dovadi/dbconfig"
 )
 
 func main() {
-  dbSettings, err := railsdbconfig.Settings()
+  settings := dbconfig.Settings('settings.json')
   if err != nil {
     panic(err)
   }
 
-  fmt.Println(dbSettings.Development.Database)
+  fmt.Println(settings.Database)
 }
 ```
 

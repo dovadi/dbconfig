@@ -1,24 +1,17 @@
-package railsdbconfig_test
+package dbconfig_test
 
 import (
-	"github.com/dovadi/railsdbconfig"
+	"github.com/dovadi/dbconfig"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("Reading the Rails database yml file with default settings", func() {
 
-	var (
-		dbConf railsdbconfig.DbConfig
-		err    error
-	)
+	var dbConf dbconfig.DbConfig
 
 	BeforeEach(func() {
-		dbConf, err = railsdbconfig.LoadYamlConfig("database.yml")
-	})
-
-	It("should load without an error", func() {
-		Expect(err).Should(BeNil())
+		dbConf = dbconfig.LoadYamlConfig("database.yml")
 	})
 
 	It("should return the database name of the development environment", func() {
