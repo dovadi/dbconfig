@@ -94,13 +94,14 @@ import (
 func main() {
 
   connectionString := dbconfig.PostgresConnectionString("settings.json", "disable")
+  // => "host=dbserver.org password=password user=dbuser dbname=blog_production sslmode=disable"
   db, err := sql.Open("postgres", connectionString)
 
   // connectionString := dbconfig.MysqlConnectionString("settings.json")
+  // => "dbuser:password@tcp(dbserver.org:3309)/blog_production"
   // db, err := sql.Open("mysql", connectionString)
 }
 ```
-
 
 
 Copyright
