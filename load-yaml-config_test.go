@@ -11,7 +11,7 @@ var _ = Describe("Reading the Rails database yml file with default settings", fu
 	var dbConf dbconfig.DbConfig
 
 	BeforeEach(func() {
-		dbConf = dbconfig.LoadYamlConfig("database.yml")
+		dbConf = dbconfig.LoadYamlConfig("test-files/database.yml")
 	})
 
 	It("should return the database name of the development environment", func() {

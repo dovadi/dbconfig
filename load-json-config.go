@@ -5,13 +5,16 @@ import (
 	"io/ioutil"
 )
 
-//JSONConfig is type for the configuration read from config.json
+//JSONConfig is defining the configuration (read from json config file).
 type JSONConfig struct {
 	Environment   string
 	Database_file string
 }
 
-//LoadJSONConfig is loading the json config file
+/*
+LoadJSONConfig is loading the json config file defining
+location to database.yml and the application environment.
+*/
 func LoadJSONConfig(path string) JSONConfig {
 	jsonConfig := JSONConfig{}
 	data, err := ioutil.ReadFile(path)

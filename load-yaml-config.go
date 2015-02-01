@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-//DbParameters with all the rails settings of the corresponding database
+//DbParameters with all the rails settings of the corresponding database.
 type DbParameters struct {
 	Adapter             string
 	Encoding            string
@@ -23,7 +23,7 @@ type DbParameters struct {
 	Statement_limit     string
 }
 
-//DbConfig contains all the information from the database yaml config file
+//DbConfig contains all the information from the database yaml config file.
 type DbConfig struct {
 	Development DbParameters
 	Test        DbParameters
@@ -31,7 +31,7 @@ type DbConfig struct {
 	Staging     DbParameters
 }
 
-//LoadYamlConfig is loading the yaml config file
+//LoadYamlConfig is loading the yaml config file.
 func LoadYamlConfig(path string) DbConfig {
 	var dbconfig = DbConfig{}
 

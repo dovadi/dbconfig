@@ -2,7 +2,9 @@
 
 [![Travis CI](https://secure.travis-ci.org/dovadi/dbconfig.png)](http://travis-ci.org/dovadi/dbconfig)
 
-Golang package to read the database settings in the same way as the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) and generate a connection string for the pq and mysql drivers.
+[![GoDoc](https://godoc.org/github.com/dovadi/dbconfig?status.svg)](https://godoc.org/github.com/dovadi/dbconfig)
+
+Golang package to read the database settings following the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) and generate a connection string for the github.com/lib/pq and github.com/go-sql-driver/mysql drivers.
 
 
 Install
@@ -25,7 +27,9 @@ In the settings.json the location to the database yaml file and the application 
 }
 ```
 
-Example of usage of Settings
+If no environment is defined in the json config file, you can define the environment variable APPLICATION_ENV (on operating system level), otherwise the default environment is "development"
+
+Example of Settings
 
 ```Go
 package main
@@ -102,7 +106,7 @@ func main() {
   // connectionString := dbconfig.MysqlConnectionString("settings.json")
   // => "dbuser:password@tcp(dbserver.org:3309)/blog_production"
   // db, err := sql.Open("mysql", connectionString)
-  
+
   if err != nil {
     log.Fatal(err)
   }

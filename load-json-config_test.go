@@ -11,7 +11,7 @@ var _ = Describe("Reading a json config file", func() {
 	var jsonConf dbconfig.JSONConfig
 
 	BeforeEach(func() {
-		jsonConf = dbconfig.LoadJSONConfig("db-settings.json")
+		jsonConf = dbconfig.LoadJSONConfig("test-files/config.json")
 	})
 
 	It("should return the directory to the given rails app", func() {
