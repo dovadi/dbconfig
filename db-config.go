@@ -16,7 +16,7 @@ the enviroment is configured in the settings json configuration file.
 If environment is NOT configured, you can set the environment variable APPLICATION_ENV (on os level).
 If this is also not defined "development" is the default.
 */
-func Settings(path string) DbParameters {
+func Settings(path string) map[string]string {
 	var environment string
 
 	jsonConf := LoadJSONConfig(path)
@@ -32,16 +32,7 @@ func Settings(path string) DbParameters {
 		environment = jsonConf.Environment
 	}
 
-	switch environment {
-	case "staging":
-		return dbConfig.Staging
-	case "test":
-		return dbConfig.Test
-	case "production":
-		return dbConfig.Production
-	default:
-		return dbConfig.Development
-	}
+	return dbConfig[environment]
 
 }
 
@@ -56,10 +47,10 @@ func PostgresConnectionString(path string, sslmode string) string {
 	settings := Settings(path)
 
 	connection := []string{
-		"host=", settings.Host, " ",
-		"password=", settings.Password, " ",
-		"user=", settings.Username, " ",
-		"dbname=", settings.Database, " ",
+		"host=", settings["host"], " ",
+		"password=", settings["password"], " ",
+		"user=", settings["username"], " ",
+		"dbname=", settings["database"], " ",
 		"sslmode=", sslmode}
 
 	return strings.Join(connection, "")
@@ -74,18 +65,18 @@ func MysqlConnectionString(path string) string {
 	var port string
 	settings := Settings(path)
 
-	if len(settings.Port) == 0 {
+	if len(settings["port"]) == 0 {
 		port = "3306"
 	} else {
-		port = settings.Port
+		port = settings["port"]
 	}
 
 	connection := []string{
-		settings.Username, ":",
-		settings.Password, "@tcp(",
-		settings.Host, ":",
+		settings["username"], ":",
+		settings["password"], "@tcp(",
+		settings["host"], ":",
 		port, ")/",
-		settings.Database, ""}
+		settings["database"], ""}
 
 	return strings.Join(connection, "")
 }

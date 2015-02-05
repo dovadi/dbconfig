@@ -43,7 +43,7 @@ test:
   database: blog_test
   pool: 5
   username: root
-  password:
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
   socket: /tmp/mysql.sock
 
 
