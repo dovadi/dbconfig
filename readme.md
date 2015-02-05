@@ -4,7 +4,7 @@
 
 [![GoDoc](https://godoc.org/github.com/dovadi/dbconfig?status.svg)](https://godoc.org/github.com/dovadi/dbconfig)
 
-Golang package to read the database settings following the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) and generate a connection string for the github.com/lib/pq and github.com/go-sql-driver/mysql drivers.
+Golang package to read the database settings following the rails database.yml convention, see [Rails guide](http://guides.rubyonrails.org/configuring.html#configuring-a-database) including embedded erb tags with environment variables and generate a connection string for the github.com/lib/pq and github.com/go-sql-driver/mysql drivers.
 
 
 Install
@@ -46,36 +46,9 @@ func main() {
     panic(err)
   }
 
-  fmt.Println(settings.Database)
-  fmt.Println(settings.Username)
-  fmt.Println(settings.Password)
-}
-```
-
-The most common settings are predefined:
-
-```Go
-type DbSettings struct {
-  Development DbParameters
-  Test        DbParameters
-  Production  DbParameters
-  Staging     DbParameters
-}
-
-type DbParameters struct {
-  Adapter             string
-  Encoding            string
-  Database            string
-  Username            string
-  Password            string
-  Port                string
-  Allow_concurrency   string
-  Timeout             string
-  Pool                string
-  Host                string
-  Socket              string
-  Prepared_statements string
-  Statement_limit     string
+  fmt.Println(settings["database"])
+  fmt.Println(settings["username"])
+  fmt.Println(settings["password"])
 }
 ```
 
@@ -117,6 +90,25 @@ func main() {
   .
 }
 ```
+
+
+Basic erb parsing
+-----------------
+
+A database.yml can contain erb tags with environment variables
+
+```ruby
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: blog_test
+  pool: 5
+  username: root
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  socket: /tmp/mysql.sock
+```
+
+In this case the environment variable POSTGRESQL_PASSWORD is read in order to define password.
 
 Run the tests
 -------------
